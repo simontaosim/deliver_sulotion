@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>解决快递最优化问题</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta name=viewport content='width=device-width,initial-scale=1' />
+    <style>
+        .box{
+            position: relative;
+        }
+        #node{
+            position: relative;
+            width: 80px;    
+            height: 40px;
+        
+        }
+        #start_txt{
+            position: relative;
+            left: 105px;
+            bottom: 45px;
+            font-size: larger;
+            color: #0fffff;
+            font-weight: bold;
+        }
+        #start{
+             position: relative;
+            width: 200px;    
+            height: 100px;
+            z-index: -20;
+        }
+        #start_area{
+            position: relative;
+        
+        }
+        .ps{
+            position: relative;
+            bottom: 15px;
+            right: 30px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function(){
+           $('#begin').click(function(){
+               $('#node').animate({left: '250px',top: '150px'});
+               $('#start_area').animate({left: '340px',top: '150px'});
+           });
+        
+
+        });
+   
+    </script>
+</head>
+<body>
+    <h2>快递最优化问题</h2>
+<div></div>
+<div><button id="begin">打乱</button></div><br>
+<br>
+<canvas id="node">
+你的浏览器不支持html5动画
+    </canvas><strong class='ps'>:表示供应商</strong><br><br>
+<script>
+        for(var i=0; i< 10; i++){
+            document.write('<canvas id="node'+i.toString()+'"></canvas>');
+        }
+    </script>
+ <script type="text/javascript">
+　　　　　　　　　 var c=document.getElementById("node");
+                var cxt=c.getContext("2d");
+                cxt.fillStyle="#F75C2F";
+                cxt.beginPath();
+                cxt.arc(100,71,70,0,Math.PI*2,true);
+                cxt.closePath();
+                cxt.fill();
+        for(var j=0; j<10; j++){
+            var d=document.getElementById("node"+j.toString());        
+            var cxt1=d.getContext("2d");
+                cxt1.fillStyle="#F75C2F";
+                cxt1.beginPath();
+                cxt1.arc(100,71,70,0,Math.PI*2,true);
+                cxt1.closePath();
+                cxt1.fill();
+           $("#node"+j.toString()).css('width','80px');
+           $("#node"+j.toString()).css('height','40px');
+        }
+</script>
+    <div id="start_area">
+        <span id="start_txt">公司起点</span>
+        <canvas id='start'></canvas>
+        <script>
+            var e=document.getElementById("start");
+            var cxt2=e.getContext("2d");
+            cxt2.fillStyle="#947A6D";
+            cxt2.beginPath();
+            cxt2.arc(100,71,70,0,Math.PI*2,true);
+            cxt2.closePath();
+            cxt2.fill();
+        </script>
+    </div>
+    
+<script>
+        for(var i=0; i< 10; i++){
+            document.write('<canvas id="deliver'+i.toString()+'"></canvas>');
+        }
+    </script>
+ <script type="text/javascript">
+
+        for(var j=0; j<10; j++){
+            var f=document.getElementById("deliver"+j.toString());        
+            var cxt3=f.getContext("2d");
+                cxt3.beginPath();
+                cxt3.arc(100,71,30,0,Math.PI*2,true);
+                cxt3.closePath();
+                cxt4=f.getContext("2d");
+                cxt4.fill();
+                cxt4.lineWidth=10;
+                cxt4.moveTo(100,40);
+                cxt4.lineTo(100,3000);
+                cxt4.moveTo(100,100);
+                cxt4.lineTo(150,100);
+                cxt4.moveTo(100,100);
+                cxt4.lineTo(50,100);
+                cxt4.stroke();
+           $("#deliver"+j.toString()).css('width','80px');
+           $("#deliver"+j.toString()).css('height','60px');
+        }
+</script>    
+    
+</body>
+
+</body>
+</html>
