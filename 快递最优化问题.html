@@ -15,7 +15,7 @@
         
         }
         #start_txt{
-            position: relative;
+            position:absolute;
             left: 105px;
             bottom: 45px;
             font-size: larger;
@@ -37,18 +37,64 @@
             bottom: 15px;
             right: 30px;
         }
+        #mainShow{
+            position: relative;
+            width: 90%
+            height: 900px;
+        }
     </style>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
+        function cube(x){
+            return x*x;
+        }
+        var locations = new Array();
+        function compareRandom(x,y){
+            var location = new Array(x,y);
+            for(var ii=0; ii<locations.length; ii++){
+                if(cube(Math.abs(locations[ii][0]-x))+cube(Math.abs(locations[ii][1]-y))<=200){
+                    //勾股定理判断，使得两个节点的距离不会太近
+                     var x = Math.random()*100;
+                     var y = Math.random()*100;
+                     var location = new Array(x,y);
+                }
+            }
+            return location;
+        }
         $(document).ready(function(){
-           $('#begin').click(function(){
-               $('#node').animate({left: '250px',top: '150px'});
-               $('#start_area').animate({left: '340px',top: '150px'});
-           });
-        
-
+            var x = Math.random()*100;
+            var y = Math.random()*100;
+            $('#start_area').css("position","absolute");
+            $('#start_area').animate({left: x+'%',top: y+'%'});
+            $('#start_area').append('<span id="start_txt">公司起点</span>');
+            $('#start_txt').animate({left: $('#start_area').position().left+30 , top: $('#start_area').position().top+35});
+            for(var tt=0; tt<10; tt++){
+                 var x1 = Math.random()*100;
+                 var y1 = Math.random()*100;
+                locations.push(compareRandom(x1,y1));
+                $("#node"+tt.toString()).css("position","absolute");
+                $("#node"+tt.toString()).animate({left: locations[locations.length-1][0]+'%',top: locations[locations.length-1][1]+'%'});
+                $("#node"+tt.toString()).after('<span id="node_txt'+tt.toString()+'">供应商'+'<strong style="font-size:large">'+tt.toString()+'</strong></span><br>');
+                  $("#node_txt"+tt.toString()).css({'position':'absolute', 'font-size':'small', 'color': 'black',left: locations[locations.length-1][0]+'%',top: locations[locations.length-1][1]+'%','z-index': '700'});
+            }
+            for(var vv=0; vv<10; vv++){
+                 var x2 = Math.random()*100;
+                 var y2 = Math.random()*100;
+                locations.push(compareRandom(x2,y2));
+                $("#custumer"+vv.toString()).css("position","absolute");
+                $("#custumer"+vv.toString()).animate({left: locations[locations.length-1][0]+'%',top: locations[locations.length-1][1]+'%'});
+            }
+            for(var uu=0; uu<10; uu++){
+                 var x3 = Math.random()*100;
+                 var y3 = Math.random()*100;
+                 var location = new Array(x3,y3);
+                locations.push(location);
+                $("#deliver"+uu.toString()).css("position","absolute");
+                $("#deliver"+uu.toString()).css("z-index","100");
+                $("#deliver"+uu.toString()).animate({left: x3+'%',top: y3+'%'});
+                
+            }
         });
-   
     </script>
 </head>
 <body>
@@ -59,12 +105,12 @@
 <canvas id="node">
 你的浏览器不支持html5动画
     </canvas><strong class='ps'>:表示供应商</strong><br><br>
-<script>
+    <div id="mainShow">
+    <script>
         for(var i=0; i< 10; i++){
             document.write('<canvas id="node'+i.toString()+'"></canvas>');
         }
-    </script>
- <script type="text/javascript">
+
 　　　　　　　　　 var c=document.getElementById("node");
                 var cxt=c.getContext("2d");
                 cxt.fillStyle="#F75C2F";
@@ -80,30 +126,12 @@
                 cxt1.arc(100,71,70,0,Math.PI*2,true);
                 cxt1.closePath();
                 cxt1.fill();
-           $("#node"+j.toString()).css('width','80px');
-           $("#node"+j.toString()).css('height','40px');
+           $("#node"+j.toString()).css('width','200px');
+           $("#node"+j.toString()).css('height','100px');
         }
-</script>
-    <div id="start_area">
-        <span id="start_txt">公司起点</span>
-        <canvas id='start'></canvas>
-        <script>
-            var e=document.getElementById("start");
-            var cxt2=e.getContext("2d");
-            cxt2.fillStyle="#947A6D";
-            cxt2.beginPath();
-            cxt2.arc(100,71,70,0,Math.PI*2,true);
-            cxt2.closePath();
-            cxt2.fill();
-        </script>
-    </div>
-    
-<script>
         for(var i=0; i< 10; i++){
             document.write('<canvas id="deliver'+i.toString()+'"></canvas>');
         }
-    </script>
- <script type="text/javascript">
 
         for(var j=0; j<10; j++){
             var f=document.getElementById("deliver"+j.toString());        
@@ -124,8 +152,41 @@
            $("#deliver"+j.toString()).css('width','80px');
            $("#deliver"+j.toString()).css('height','60px');
         }
+     
+     for(var k=0; k<10;k++){
+         document.write('<canvas id="custumer'+k.toString()+'"></canvas>');
+     }
+     for(var l=0; l<10; l++){
+        var g=document.getElementById('custumer'+l.toString());
+        var cxt5 = g.getContext('2d');
+            cxt5.fillStyle="#147A6D";
+            cxt5.beginPath();
+            cxt5.arc(100,71,70,0,Math.PI*2,true);
+            cxt5.closePath();
+            cxt5.fill();
+
+           $("#custumer"+l.toString()).css('width','60px');
+           $("#custumer"+l.toString()).css('height','60px');
+        
+     }
 </script>    
-    
+        <div id="start_area" >
+        <canvas id='start'></canvas>
+        <script>
+            var e=document.getElementById("start");
+            var cxt2=e.getContext("2d");
+            cxt2.fillStyle="#317A5D";
+            cxt2.beginPath();
+            cxt2.arc(100,71,70,0,Math.PI*2,true);
+            cxt2.closePath();
+            cxt2.fill();
+        </script></div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    </div>
+
+
 </body>
 
 </body>
